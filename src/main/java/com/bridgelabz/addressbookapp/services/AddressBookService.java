@@ -10,39 +10,41 @@ import java.util.List;
 @Service
 public class AddressBookService implements IAddressBookService{
 
-
+    private List<AddressBookData> addressBookDataList = new ArrayList<>();
     @Override
     public List<AddressBookData> getAddressBookData() {
-        List<AddressBookData> addressBookDataList = new ArrayList<>();
-        addressBookDataList.add(new AddressBookData(1, new AddressBookDTO("Aman", "Gupta", "Orai",
-                "Uttar Pradesh", 285001, 94502917)));
         return addressBookDataList;
     }
 
     @Override
     public AddressBookData getAddressBookDataById(int srNo) {
-        AddressBookData addressBookData = null;
-        addressBookData = new AddressBookData(1, new AddressBookDTO("Aman", "Gupta", "Orai",
-                "Uttar Pradesh", 285001, 94502917));
-        return addressBookData;
+        return addressBookDataList.get(srNo-1);
     }
 
     @Override
     public AddressBookData createAddressBookData(AddressBookDTO addressBookDTO) {
         AddressBookData addressBookData = null;
-        addressBookData = new AddressBookData(1, addressBookDTO);
+        addressBookData = new AddressBookData(addressBookDataList.size() + 1, addressBookDTO);
+        addressBookDataList.add(addressBookData);
         return addressBookData;
     }
 
     @Override
-    public AddressBookData updateAddressBookData(AddressBookDTO addressBookDTO) {
-        AddressBookData addressBookData = null;
-        addressBookData = new AddressBookData(1, addressBookDTO);
+    public AddressBookData updateAddressBookData(AddressBookDTO addressBookDTO, int srNo) {
+        AddressBookData addressBookData = this.getAddressBookDataById(srNo);
+        addressBookData.setfName(addressBookDTO.fName);
+        addressBookData.setlName(addressBookDTO.lName);
+        addressBookData.setCity(addressBookDTO.city);
+        addressBookData.setState(addressBookDTO.state);
+        addressBookData.setZip(addressBookDTO.zip);
+        addressBookData.setMobNo(addressBookDTO.mobNo);
+        addressBookDataList.set(srNo-1, addressBookData);
         return addressBookData;
     }
 
     @Override
     public void deleteAddressBookData(int srNo) {
+        addressBookDataList.remove(srNo-1);
 
     }
 }
