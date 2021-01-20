@@ -1,14 +1,14 @@
 package com.bridgelabz.addressbookapp.dto;
 
-public class addAddressBookDTO {
-    private String fName;
-    private String lName;
-    private String city;
-    private String state;
-    private long zip;
-    private long mobNo;
+public class AddressBookDTO {
+    public String fName;
+    public String lName;
+    public String city;
+    public String state;
+    public long zip;
+    public long mobNo;
 
-    public addAddressBookDTO(String fName, String lName, String city, String state, long zip, long mobNo) {
+    public AddressBookDTO(String fName, String lName, String city, String state, long zip, long mobNo) {
         this.fName = fName;
         this.lName = lName;
         this.city = city;
