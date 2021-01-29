@@ -1,31 +1,25 @@
 package com.bridgelabz.addressbookapp.dto;
 
-public class AddressBookDTO {
-    public String fName;
-    public String lName;
+import lombok.ToString;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+public @ToString
+class AddressBookDTO {
+
+    @Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\s]{2,}", message = "Contact name Invalid")
+    public String fullName;
+    //    @NotBlank(message = "City cannot be empty")
     public String city;
+    //    @NotBlank(message = "State cannot be empty")
     public String state;
+    //    @NotBlank(message = "Zip Code cannot be empty")
     public long zip;
+    //    @NotBlank(message = "Mobile No. cannot be empty")
     public long mobNo;
+    @NotBlank(message = "Address cannot be empty")
+    public String address;
 
-    public AddressBookDTO(String fName, String lName, String city, String state, long zip, long mobNo) {
-        this.fName = fName;
-        this.lName = lName;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.mobNo = mobNo;
-    }
-
-    @Override
-    public String toString() {
-        return "addAddressBookDTO{" +
-                "fName='" + fName + '\'' +
-                ", lName='" + lName + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zip=" + zip +
-                ", mobNo=" + mobNo +
-                '}';
-    }
 }

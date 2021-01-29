@@ -9,10 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/addressbookservice")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AddressBookController {
 
     @Autowired
@@ -28,25 +30,23 @@ public class AddressBookController {
 
     @GetMapping("/get/{srNo}")
     public ResponseEntity<ResponseDTO> getAddressBookData(@PathVariable("srNo") int srNo) {
-        AddressBookData addressBookData = null;
-        addressBookData = addressBookService.getAddressBookDataById(srNo);
+        AddressBookData addressBookData = addressBookService.getAddressBookDataById(srNo);
         ResponseDTO responseDTO = new ResponseDTO("GET Call for Serial No Successful", addressBookData);
-        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);    }
+        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+    }
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseDTO> addAddressBookData(
-            @RequestBody AddressBookDTO addressBookDTO) {
-        AddressBookData addressBookData = null;
-        addressBookData = addressBookService.createAddressBookData(addressBookDTO);
+    public ResponseEntity<ResponseDTO> addAddressBookData(@Valid
+                                                          @RequestBody AddressBookDTO addressBookDTO) {
+        AddressBookData addressBookData = addressBookService.createAddressBookData(addressBookDTO);
         ResponseDTO responseDTO = new ResponseDTO("Created Address Book Data Successfully", addressBookData);
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
 
     @PutMapping("/update/{srNo}")
-    public ResponseEntity<ResponseDTO> updateAddressBookData(
-            @RequestBody AddressBookDTO addressBookDTO, @PathVariable("srNo") int srNo) {
-        AddressBookData addressBookData = null;
-        addressBookData = addressBookService.updateAddressBookData(addressBookDTO, srNo);
+    public ResponseEntity<ResponseDTO> updateAddressBookData(@PathVariable("srNo") int srNo,
+                                                             @Valid @RequestBody AddressBookDTO addressBookDTO) {
+        AddressBookData addressBookData = addressBookService.updateAddressBookData(addressBookDTO, srNo);
         ResponseDTO responseDTO = new ResponseDTO("Updated Address Book Data Successfully", addressBookData);
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
